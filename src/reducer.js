@@ -2,7 +2,11 @@ export const initialState = {
     basket: []
 };
 
-// Selector loops trought 
+// Selector 
+//take the basket
+//reduce it to the total amount
+//return the total amount
+
 export const getBasketTotal = (basket) =>
     basket.reduce((amount, item) => item.price + amount, 0);
 
