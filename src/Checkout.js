@@ -8,17 +8,18 @@ import Subtotal from './Subtotal';
 function Checkout() {
 
     const [basket] = useStateValue();
+    console.log(basket);
 
     return (
         <div className='checkout'>
             <div className='checkout__left'>
-                <img className='checkout__ad' src='https://images.unsplash.com/photo-1594969155368-f19485a9d88c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' alt='' />
+                <img className='checkout__ad' src='https://www.acurax.com/wp-content/themes/acuraxsite/images/inner_page_bnr.jpg?x21934' alt='' />
 
                 <div>
 
                     <h2 className="checkout__title">Your shopping Basket</h2>
 
-                    {basket.map(item => (
+                    {basket.basket.map(item => (
                         <CheckoutProduct
                             id={item.id}
                             title={item.title}
