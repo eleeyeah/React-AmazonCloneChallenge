@@ -1,15 +1,23 @@
 export const initialState = {
-    basket: [],
-
+    basket: []
 };
 
-export const reducer = (state = initialState, action) => {
+// Selector loops trought 
+export const getBasketTotal = (basket) =>
+    basket.reduce((amount, item) => item.price + amount, 0);
+
+
+export const reducer = (state, action) => {
+    console.log(action);
     switch (action.type) {
         case 'ADD_TO_BASKET':
             return {
                 ...state,
                 basket: [...state.basket, action.item],
             };
+            default:
+            return state;
+
         /* case REMOVE_FROM_BASKET:
             const newBasket = [...state.basket];
             const index = state.basket.findIndex(
@@ -23,8 +31,7 @@ export const reducer = (state = initialState, action) => {
                 );
             }
             return { ...state, basket: newBasket };
-        default:
-            return state;
+        
     } */
     }
 };
