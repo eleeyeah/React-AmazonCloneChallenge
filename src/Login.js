@@ -1,6 +1,9 @@
-import React from 'react'
+import { authOrigin } from 'firebase-tools/lib/api';
+import React, { _useState } from 'react'
 import { Link } from 'react-router-dom'
+import { auth } from './firebase';
 import './Login.css'
+
 
 function Login() {
     //get the Stateee from the data layer ;)
@@ -10,15 +13,21 @@ function Login() {
 
     const signIn = e => {
         e.preventDefault(); //prevents the page from refreshing
+
+        //firebase here
     }
 
-    //firebase here
+    
 
     const register = e => {
         e.preventDefault(); //prevents the page from refreshing
+        //firebase here
+        auth
+        .createUserWithEmailAndPassword(email, password)
+        
     }
 
-    //firebase here
+    
 
 
 
@@ -43,7 +52,7 @@ function Login() {
                     <h5>Password</h5>
                     <input type="password" value={password} onChange={e => setPasword(e.target.value)} />
 
-                    <button onClick={signIn} type='submit' 
+                    <button type='submit' onClick={signIn} 
                     className="login__signInButton">Sign In</button>
                 </form>
 
