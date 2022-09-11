@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes,  Route } from 'react-router-dom';
 import Checkout from './Checkout';
 import Login from './Login';
 
+
 function App() {
   const [basket, setBasket] = React.useState([{
     id: 1,

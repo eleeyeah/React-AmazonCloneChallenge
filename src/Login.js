@@ -1,36 +1,28 @@
-import { authOrigin } from 'firebase-tools/lib/api';
+import { useRef } from 'react'
 import React, { _useState } from 'react'
 import { Link } from 'react-router-dom'
-import { auth } from './firebase';
 import './Login.css'
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
-    //get the Stateee from the data layer ;)
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPasword] = React.useState('');
+   
+    function submitHandler(e) {
+        e.preventDefault();
 
-    const signIn = e => {
-        e.preventDefault(); //prevents the page from refreshing
+        const enteredEmail = emailInputRef.current.value;
+        const enteredPassword = passwordInputRef.current.value;
 
-        //firebase here
+        const userData = {
+            email: enteredEmail,
+            password: enteredPassword
+        };
+
+        console.log(userData);
+
     }
-
-    
-
-    const register = e => {
-        e.preventDefault(); //prevents the page from refreshing
-        //firebase here
-        auth
-        .createUserWithEmailAndPassword(email, password)
-        
-    }
-
-    
-
-
-
 
 
     return (
@@ -45,15 +37,15 @@ function Login() {
             <div className="login__container">
                 <h1>Sign In</h1>
 
-                <form>
+                <form onSubmit={submitHandler}>
                     <h5>E-mail</h5>
-                    <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input type="text" ref={emailInputRef} placeholder= 'please enter your email'/>
 
                     <h5>Password</h5>
-                    <input type="password" value={password} onChange={e => setPasword(e.target.value)} />
+                    <input type="password" ref={passwordInputRef} placeholder= 'please enter your password'/>
 
-                    <button type='submit' onClick={signIn} 
-                    className="login__signInButton">Sign In</button>
+                    <button type='submit' 
+                        className="login__signInButton">Sign In</button>
                 </form>
 
                 <p>
@@ -61,7 +53,7 @@ function Login() {
                     see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
                 </p>
 
-                <button onClick={register} className='login__registerButton'>Create your Amazon Account</button>
+                <button className='login__registerButton'>Create your Amazon Account</button>
 
             </div>
         </div>

@@ -6,7 +6,7 @@ function Product({ id, title, price, rating, image }) {
 
     const [{basket}, dispatch] = useStateValue();
 
-console.log('this is the bket')
+console.log('this is the basket')
 
     const addToBasket = () => {
         // Add the reducer instance in the data layer
