@@ -1,28 +1,54 @@
-import { useRef } from 'react'
-import React, { _useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Login.css'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
+import app from './firebase';
 
 function Login() {
-    const emailInputRef = useRef();
-    const passwordInputRef = useRef();
+    const auth = getAuth(app);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const signIn = () => {
+        signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user)
+        alert('User Logged In')
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        //const errorMessage = error.message;
+        alert(errorCode)
+      });
+       }
+
+    const signUp = () => {
+        
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log(user)
+            alert('User Registered')    
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            // const errorMessage = error.message;
+            alert(errorCode)
+            // ..
+          });
+    
+    }
 
    
-    function submitHandler(e) {
-        e.preventDefault();
 
-        const enteredEmail = emailInputRef.current.value;
-        const enteredPassword = passwordInputRef.current.value;
+   
 
-        const userData = {
-            email: enteredEmail,
-            password: enteredPassword
-        };
-
-        console.log(userData);
-
-    }
 
 
     return (
@@ -37,27 +63,27 @@ function Login() {
             <div className="login__container">
                 <h1>Sign In</h1>
 
-                <form onSubmit={submitHandler}>
+                <div >
                     <h5>E-mail</h5>
-                    <input type="text" ref={emailInputRef} placeholder= 'please enter your email'/>
+                    <input type="text" placeholder='please enter your email' onChange={(e) => setEmail(e.target.value)} />
 
                     <h5>Password</h5>
-                    <input type="password" ref={passwordInputRef} placeholder= 'please enter your password'/>
+                    <input type="password" placeholder='please enter your password' onChange={(e) => setPassword(e.target.value)} />
 
-                    <button type='submit' 
-                        className="login__signInButton">Sign In</button>
-                </form>
+                    <button type="text" className="login__signInButton" onClick={signIn}>Sign In</button>
+                </div>
 
                 <p>
                     By signing-in you agree to Ilie's AMAZON FAKE CLONE Conditions of Use & Sale. Please
                     see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
                 </p>
 
-                <button className='login__registerButton'>Create your Amazon Account</button>
+                <button className='login__registerButton' onClick={signUp}>Create your Amazon Account</button>
 
             </div>
         </div>
     )
 }
 
-export default Login
+
+export default Login;
